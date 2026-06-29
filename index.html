@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>ברוכים הבאים לכאוס — כיתה בהפרעה 5</title>
+    <meta name="description" content="המקום שבו הכיתה מתעוררת לחיים! הצביעו בסקרים כמו &#39;את מי אתם מעדיפים?&#39;, השתתפו בטורנירים מטורפים, קראו סיפורים פרועים ורכילות עסיסית מחיי הכיתה. היכנסו עכשיו ובואו לעשות הפרעות!">
+    <meta name="keywords" content="כיתה, כיתה בהפרעה, הפרעות בע''מ, רכילות, סקרים">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'fda3ffd8-441c-4076-8ae9-43a9175c0a34',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        var clickMeta = {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        };
+        
+        trackEvent('click', clickMeta);
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        var navMeta = {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        };
+        
+        trackEvent('navigation', navMeta);
+      }
+    }, true);
+  }
+  
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="ברוכים הבאים לכאוס — כיתה בהפרעה 5">
+    <meta property="og:description" content="המקום שבו הכיתה מתעוררת לחיים! הצביעו בסקרים כמו &#39;את מי אתם מעדיפים?&#39;, השתתפו בטורנירים מטורפים, קראו סיפורים פרועים ורכילות עסיסית מחיי הכיתה. היכנסו עכשיו ובואו לעשות הפרעות!">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ברוכים הבאים לכאוס — כיתה בהפרעה 5">
+    <meta name="twitter:description" content="המקום שבו הכיתה מתעוררת לחיים! הצביעו בסקרים כמו &#39;את מי אתם מעדיפים?&#39;, השתתפו בטורנירים מטורפים, קראו סיפורים פרועים ורכילות עסיסית מחיי הכיתה. היכנסו עכשיו ובואו לעשות הפרעות!">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <script>window.ZAPPY_WEBSITE_ID = "fda3ffd8-441c-4076-8ae9-43a9175c0a34"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-----image-1.webp" alt="כיתה בהפרעה 5"></a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="#features">תכונות</a></li><li><a href="#showcase">תצוגה</a></li><li><a href="#benefits">יתרונות</a></li><li><a href="#testimonials">המלצות</a></li><li><a href="#stats">נתונים</a></li><li class="mobile-contact-link nav-cta-mobile-item"><a href="#cta" class="nav-cta-btn">צור קשר</a></li></ul></div>
+    
+    
+    
+    <div class="nav-cta-container">
+      <a href="#cta" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+
+    // Close the full-screen overlay menu on Escape
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Escape' || e.key === 'Esc') && navMenu.classList.contains('active')) {
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        console.log('[Navbar] Menu closed (Escape)');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section data-band-index="0" id="hero" class="index-hero-section" data-layout-spec="בית-hero" data-hero-type="fullscreen-scrim">
+  <!-- Full-bleed background image -->
+  <img loading="eager" fetchpriority="high" data-hero-bg="true" class="hero-bg-image" data-placeholder="index-hero-image-1" data-context="A dramatic classroom-at-night atmosphere reimagined as a social arena: desks, projector glow, neon chalk scribbles on a chalkboard, and blurred stage lights. The room is dark with electric pink and cyan rim lighting, subtle chalk dust texture, and restrained emoji reaction sparks floating in the air. Cinematic wide shot." width="1200" height="600" src="/assets/site-index-hero-image-1.webp" alt="כיתה בהפרעה - זירת כאוס ניאונית" data-preserve-bg="0">
+
+  <!-- Scrim overlay for text legibility -->
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <!-- Decorative motifs (behind content) -->
+  <div class="hero-decorations" aria-hidden="true">
+    <!-- Neon dot grid overlay -->
+    <div class="deco-neon-grid"></div>
+    <!-- Pink glow blob -->
+    <div class="deco-pink-blob"></div>
+    <!-- Cyan glow blob -->
+    <div class="deco-cyan-blob"></div>
+  </div>
+
+  <!-- Content overlay group - lower START quadrant, aligned to START -->
+  <div class="hero-overlay-group">
+    <h1 class="hero-headline">הזירה של הכיתה — הצבעות, טורנירים, סיפורים הזויים ורכילות</h1>
+    <h3 class="hero-subtitle">בדיחות פנימיות, דרמות מצחיקות וכיף תחרותי — הכל במקום אחד, בדיוק כמו שאנחנו אוהבים.</h3>
+    <div class="hero-ctas">
+      <a href="#join" class="btn-primary btn-neon">
+        <span>הצטרפו לכאוס של הכיתה</span>
+        <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#explore" class="btn-secondary btn-outline-cyan">
+        <span>לגלות מה יש בפנים</span>
+      </a>
+    </div>
+    <p class="hero-trust-line">נוצר עבור חברי הכיתה, החברים וכל מי שמכיר את הדרמה.</p>
+  </div>
+
+  <!-- Bottom divider: angled neon haze fade with thin acid-lime glow line -->
+  <div class="index-hero-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hero-divider-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="var(--accent)" stop-opacity="0"/>
+          <stop offset="85%" stop-color="var(--accent)" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.3"/>
+        </linearGradient>
+      </defs>
+      <!-- Angled haze fill -->
+      <path d="M0,80 L0,30 L1200,60 L1200,80 Z" fill="#0A0A0F"/>
+      <!-- Thin acid-lime glow line -->
+      <path d="M0,32 L1200,62" fill="#0A0A0F" stroke="var(--accent)" stroke-width="1.5" opacity="0.7"/>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="1" id="features" class="index-features-section" data-layout-spec="בית-features">
+  <div class="index-features-section__container">
+    <div class="index-features-section__intro">
+      <span class="index-features-section__label">קצת על הכיתה</span>
+      <h2 class="index-features-section__title">הכי כיתה בהפרעה בע''מ</h2>
+      <p class="index-features-section__subtitle">כל מה שקורה אצלנו — הכי מוכר, הכי מצחיק, והכי מיועד למי שבאמת מבין את הקטע. בואו לראות על מה כל המהומה.</p>
+    </div>
+    <div class="index-features-section__grid">
+      
+      <article class="index-features-section__card">
+        <div class="index-features-section__card-glow index-features-section__card-glow--pink"></div>
+        <div class="index-features-section__card-inner">
+          <div class="index-features-section__card-header">
+            <span class="index-features-section__card-icon" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="index-features-section__card-badge">הכי חם</span>
+          </div>
+          <h3 class="index-features-section__card-title">מי אתם מעדיפים?</h3>
+          <p class="index-features-section__card-text">קרבות ראש בראש, הצבעות סודיות, ותוצאות שאף אחד לא ציפה להן. תבחרו צד ותראו מי שולט בכיתה.</p>
+          <div class="index-features-section__reactions">
+            <span class="index-features-section__reaction-dot" style="background:#FF4FA3;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#3BE8FF;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#D9FF4A;"></span>
+            <span class="index-features-section__reaction-count">2.4k</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="index-features-section__card">
+        <div class="index-features-section__card-glow index-features-section__card-glow--cyan"></div>
+        <div class="index-features-section__card-inner">
+          <div class="index-features-section__card-header">
+            <span class="index-features-section__card-icon" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 8 7 8"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 8 17 8"/><path d="M4 22h16"/><path d="M10 22V8"/><path d="M14 22V8"/><path d="M2 8h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2Z"/></svg>
+            </span>
+            <span class="index-features-section__card-badge">טורניר</span>
+          </div>
+          <h3 class="index-features-section__card-title">מונדיאל הכיתה</h3>
+          <p class="index-features-section__card-text">טורניר נוקאאוט אמיתי עם שמות של ילדים מהכיתה. מי יניף את הגביע? רק ההצבעות שלכם יקבעו.</p>
+          <div class="index-features-section__reactions">
+            <span class="index-features-section__reaction-dot" style="background:#3BE8FF;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#D9FF4A;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#FF4FA3;"></span>
+            <span class="index-features-section__reaction-count">1.8k</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="index-features-section__card">
+        <div class="index-features-section__card-glow index-features-section__card-glow--lime"></div>
+        <div class="index-features-section__card-inner">
+          <div class="index-features-section__card-header">
+            <span class="index-features-section__card-icon" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            <span class="index-features-section__card-badge">הזוי</span>
+          </div>
+          <h3 class="index-features-section__card-title">סיפורים מהכיתה</h3>
+          <p class="index-features-section__card-text">כל הסיפורים הכי מוזרים והזויים שקרו אי פעם בין השולחנות. דברים שלא תאמינו שבאמת קרו.</p>
+          <div class="index-features-section__reactions">
+            <span class="index-features-section__reaction-dot" style="background:#D9FF4A;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#FF4FA3;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#3BE8FF;"></span>
+            <span class="index-features-section__reaction-count">3.1k</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="index-features-section__card">
+        <div class="index-features-section__card-glow index-features-section__card-glow--pink"></div>
+        <div class="index-features-section__card-inner">
+          <div class="index-features-section__card-header">
+            <span class="index-features-section__card-icon" aria-hidden="true">
+              <svg data-element-type="icon" data-icon-type="svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </span>
+            <span class="index-features-section__card-badge">חם מהתנור</span>
+          </div>
+          <h3 class="index-features-section__card-title">רכילות</h3>
+          <p class="index-features-section__card-text">כל הדרמות הקטנות, השמועות העסיסיות והרגעים המביכים שכולם מדברים עליהם בהפסקה. רק בינינו.</p>
+          <div class="index-features-section__reactions">
+            <span class="index-features-section__reaction-dot" style="background:#FF4FA3;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#3BE8FF;"></span>
+            <span class="index-features-section__reaction-dot" style="background:#D9FF4A;"></span>
+            <span class="index-features-section__reaction-count">4.7k</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <div class="index-features-section__divider-wrapper" aria-hidden="true" data-no-icon-edit="true">
+    <svg viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="divider-highlight" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,80 L0,38 Q30,32 60,40 T120,35 Q150,42 180,36 T240,40 Q270,33 300,38 T360,35 Q390,40 420,34 T480,38 Q510,32 540,40 T600,36 Q630,40 660,34 T720,38 Q750,32 780,40 T840,36 Q870,40 900,34 T960,38 Q990,32 1020,40 T1080,36 Q1110,40 1140,34 T1200,38 L1200,80 Z" fill="var(--bg-light)"/>
+      <path d="M0,80 L0,40 Q30,34 60,42 T120,37 Q150,44 180,38 T240,42 Q270,35 300,40 T360,37 Q390,42 420,36 T480,40 Q510,34 540,42 T600,38 Q630,42 660,36 T720,40 Q750,34 780,42 T840,38 Q870,42 900,36 T960,40 Q990,34 1020,42 T1080,38 Q1110,42 1140,36 T1200,40 L1200,80 Z" fill="var(--bg-light)"/>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="2" id="showcase" class="index-showcase-section" data-layout-spec="בית-showcase" dir="rtl">
+  <div class="index-showcase-section__container">
+    <!-- TOP TWO-COLUMN ROW: Content + Mockup Composition -->
+    <div class="index-showcase-section__top-row">
+      <!-- Content Column (START / Right in RTL) -->
+      <div class="index-showcase-section__text-col">
+        <span class="index-showcase-section__label" style="color: #1A1A1A !important">הצצה לממלכה</span>
+        <h2 class="index-showcase-section__title">
+          ככה נראית<br>כיתה בהפרעה
+        </h2>
+        <p class="index-showcase-section__description">
+          טורניר נוקאאוט עם שמות של ילדים, סקרים שאף אחד לא רוצה להפסיד בהם, סיפורים הזויים שרק הכיתה שלנו יכולה לייצר, ורכילות עסיסית שעושה חשק לרענן את הדף. כל רגע יומיומי הופך אצלנו לאירוע שכולם מדברים עליו.
+        </p>
+        <div class="index-showcase-section__action-group">
+          <a href="#" class="index-showcase-section__btn-primary">
+            <span>להצטרפות לכיתה</span>
+            <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="#" class="index-showcase-section__btn-ghost">
+            <span>לכל הפיצ'רים</span>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Imagery Column (END / Left in RTL) - Mockup Composition -->
+      <div class="index-showcase-section__media-col">
+        <div class="index-showcase-section__mockup-composition">
+          <!-- Main Bracket Tile (Center) -->
+          <div class="index-showcase-section__bracket-tile">
+            <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-1" data-context="A stylized tournament bracket mockup on a dark neon screen, featuring classmate names in Hebrew, with glowing magenta and cyan connector lines, resembling a World Cup knockout stage visual" width="600" height="400" src="/assets/site-index-showcase-image-1.webp" alt="לוח טורניר כיתתי עם שמות ילדים" class="index-showcase-section__bracket-img">
+            <div class="index-showcase-section__bracket-overlay">
+              <span class="index-showcase-section__bracket-badge">🔥 גמר טורניר</span>
+            </div>
+          </div>
+
+          <!-- Peeking Poll Card (START-Top corner / Right-Top in RTL) -->
+          <div class="index-showcase-section__poll-peek">
+            <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-2" data-context="A sleek poll card UI mockup in Hebrew asking 'Who do you prefer?', with two classmate names and percentage bars, styled with glowing pink borders on a dark background" width="280" height="180" src="/assets/site-index-showcase-image-2.webp" alt="כרטיס סקר את מי מעדיפים" class="index-showcase-section__peek-img">
+            <div class="index-showcase-section__peek-label">📊 את מי מעדיפים?</div>
+          </div>
+
+          <!-- Peeking Gossip Card (END-Bottom corner / Left-Bottom in RTL) -->
+          <div class="index-showcase-section__gossip-peek">
+            <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-3" data-context="A blurred, glowing gossip card mockup with Hebrew text snippets and emojis, looking like a juicy class rumor teaser on a dark frosted panel" width="260" height="160" src="/assets/site-index-showcase-image-3.webp" alt="כרטיס רכילות מטושטש" class="index-showcase-section__peek-img">
+            <div class="index-showcase-section__peek-label">🫖 רכילות טרייה</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW: Three Screenshot-Style Cards -->
+    <div class="index-showcase-section__cards-row">
+      <!-- Card 1: Story -->
+      <article class="index-showcase-section__feature-card">
+        <div class="index-showcase-section__card-media">
+          <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-4" data-context="A mobile screen mockup showing a wild class story in Hebrew, with a bold headline and a funny illustration, styled with neon cyan accents and a notebook paper texture" width="400" height="300" src="/assets/site-index-showcase-image-4.webp" alt="סיפור הזוי מהכיתה" class="index-showcase-section__card-img">
+        </div>
+        <div class="index-showcase-section__card-body">
+          <h3 class="index-showcase-section__card-title">📖 סיפורים הזויים</h3>
+          <p class="index-showcase-section__card-text">הרגעים שהפכו לאגדות — מהשטות שפוצצה את השיעור ועד ההפתעה שאף מורה לא ראה מגיעה. כל סיפור מקבל במה.</p>
+        </div>
+      </article>
+
+      <!-- Card 2: Tournament -->
+      <article class="index-showcase-section__feature-card">
+        <div class="index-showcase-section__card-media">
+          <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-5" data-context="A desktop screen mockup of a class World Cup-style tournament bracket, with Hebrew names, knockout stages, and glowing magenta progress lines on a dark interface" width="400" height="300" src="/assets/site-index-showcase-image-5.webp" alt="טורניר כיתתי בסגנון מונדיאל" class="index-showcase-section__card-img">
+        </div>
+        <div class="index-showcase-section__card-body">
+          <h3 class="index-showcase-section__card-title">🏆 טורניר הכיתה</h3>
+          <p class="index-showcase-section__card-text">כמו מונדיאל, רק עם השמות של כולם. שלב בתים, נוקאאוט דרמטי, וגמר אחד גדול שכולם מחכים לו.</p>
+        </div>
+      </article>
+
+      <!-- Card 3: Gossip -->
+      <article class="index-showcase-section__feature-card">
+        <div class="index-showcase-section__card-media">
+          <img loading="lazy" decoding="async" data-placeholder="index-showcase-image-6" data-context="A mobile phone mockup showing a class gossip feed in Hebrew, with blurred text snippets, emojis, and a mysterious glowing purple aura, resembling a playful rumor mill" width="400" height="300" src="/assets/site-index-showcase-image-6.webp" alt="ערוץ רכילות כיתתי" class="index-showcase-section__card-img">
+        </div>
+        <div class="index-showcase-section__card-body">
+          <h3 class="index-showcase-section__card-title">🫖 רכילות עסיסית</h3>
+          <p class="index-showcase-section__card-text">כל מה שקורה מאחורי הקלעים — בלי שמות אמיתיים, בלי בושות, רק הכיף שבלדעת מה קורה.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Small Note -->
+    <p class="index-showcase-section__note">
+      * התכנים המוצגים הם דוגמאות להמחשה — האתר הופך רגעים יומיומיים מהכיתה לחוויות שיתוף בסגנון אירוע.
+    </p>
+  </div>
+
+  <!-- Bottom Divider: Gradient wash into charcoal with neon dots -->
+  <div class="index-showcase-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="index-showcase-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="var(--bg-light)" stop-opacity="1"/>
+          <stop offset="100%" stop-color="var(--bg-dark)" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <!-- Base gradient shape filling bottom -->
+      <path d="M0,80 L0,30 Q100,20 200,32 T400,28 Q500,35 600,25 T800,30 Q900,25 1000,32 T1200,28 L1200,80 Z" fill="#0A0A0F"/>
+      <!-- Floating neon dots fading downward -->
+      <circle cx="150" cy="45" r="3" fill="#FF4FA3" opacity="0.8"/>
+      <circle cx="320" cy="55" r="2" fill="#3BE8FF" opacity="0.6"/>
+      <circle cx="480" cy="38" r="2.5" fill="#D9FF4A" opacity="0.7"/>
+      <circle cx="650" cy="50" r="1.5" fill="#FF4FA3" opacity="0.5"/>
+      <circle cx="820" cy="42" r="3" fill="#3BE8FF" opacity="0.8"/>
+      <circle cx="980" cy="58" r="2" fill="#D9FF4A" opacity="0.6"/>
+      <circle cx="1100" cy="35" r="2.5" fill="#FF4FA3" opacity="0.7"/>
+      <circle cx="80" cy="60" r="1.5" fill="#D9FF4A" opacity="0.4"/>
+      <circle cx="550" cy="65" r="2" fill="#3BE8FF" opacity="0.5"/>
+      <circle cx="750" cy="70" r="1.5" fill="#FF4FA3" opacity="0.3"/>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="3" id="benefits" class="index-benefits-section" data-layout-spec="בית-benefits">
+  <div class="index-benefits-section__container">
+    <!-- Main two-column row -->
+    <div class="index-benefits-section__main-row">
+      <!-- START side: headline + paragraph -->
+      <div class="index-benefits-section__intro">
+        <h2 class="index-benefits-section__headline">
+          למה כולם<br>
+          <span class="index-benefits-section__headline-accent">מכורים לאתר</span>
+        </h2>
+        <p class="index-benefits-section__description">
+          זה לא סתם עוד אתר כיתתי. זה הבית הדיגיטלי של כל הקטעים, ההצבעות, הסיפורים ההזויים והרכילות שהכי מעניינת אתכם. המקום שבו הכיתה שלנו הופכת לליגה משלה.
+        </p>
+      </div>
+
+      <!-- END side: three vertically stacked benefit panels -->
+      <div class="index-benefits-section__panels">
+        <!-- Panel 1 -->
+        <div class="index-benefits-section__panel">
+          <span class="index-benefits-section__panel-num">01</span>
+          <div class="index-benefits-section__panel-content">
+            <h3 class="index-benefits-section__panel-title">זהות כיתתית אמיתית</h3>
+            <p class="index-benefits-section__panel-text">
+              מקום אחד שמרכז את כל האנרגיה של הכיתה — בלי להתפזר בין וואטסאפ, טיקטוק ואינסטגרם.
+            </p>
+          </div>
+        </div>
+
+        <!-- Panel 2 -->
+        <div class="index-benefits-section__panel">
+          <span class="index-benefits-section__panel-num">02</span>
+          <div class="index-benefits-section__panel-content">
+            <h3 class="index-benefits-section__panel-title">רגעים קטנים הופכים לסיפורים</h3>
+            <p class="index-benefits-section__panel-text">
+              כל פדיחה, כל ווינר וכל רגע מצחיק בהפסקה מקבלים במה — והופכים לזיכרון שכל הכיתה חוזרת אליו.
+            </p>
+          </div>
+        </div>
+
+        <!-- Panel 3 -->
+        <div class="index-benefits-section__panel">
+          <span class="index-benefits-section__panel-num">03</span>
+          <div class="index-benefits-section__panel-content">
+            <h3 class="index-benefits-section__panel-title">תחרות בריאה וטראש כיפי</h3>
+            <p class="index-benefits-section__panel-text">
+              טורנירים, הצבעות "מי אתם מעדיפים" ורכילות עסיסית — כל מה שצריך כדי לשמור על עניין ולחזור כל יום.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered quote-like statement -->
+    <blockquote class="index-benefits-section__quote">
+      <p class="index-benefits-section__quote-text">
+        "זה לא סתם עוד דף — זה הבית של האנרגיה של הכיתה שלנו. המקום שבו כל ההפרעות הופכות לתוכן."
+      </p>
+      <cite class="index-benefits-section__quote-cite">— כיתה בהפרעה 5</cite>
+    </blockquote>
+  </div>
+
+  <!-- Bottom divider: diagonal spotlight beam effect -->
+  <div class="index-benefits-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="spotlight-beam" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#121317" stop-opacity="1"/>
+          <stop offset="70%" stop-color="#121317" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#121317" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,100 L0,20 L1200,100 Z" fill="var(--bg-light)"/>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="4" id="testimonials" class="index-testimonials-section" data-layout-spec="בית-testimonials">
+  <div class="index-testimonials-section__container">
+    <div class="index-testimonials-section__intro">
+      <h2 class="index-testimonials-section__title">מה אומרים בכיתה?</h2>
+      <p class="index-testimonials-section__subtitle">התגובות הכי מצחיקות, הכי אמיתיות והכי הזויות מהחבר׳ה</p>
+    </div>
+
+    <div class="index-testimonials-section__grid">
+      <!-- Card 1 -->
+      <article class="index-testimonials-section__card">
+        <div class="index-testimonials-section__avatar-wrapper">
+          <img loading="lazy" decoding="async" data-placeholder="index-testimonials-image-1" data-context="A fun, cartoon-style avatar of a smiling teenage boy with messy hair, wearing a hoodie, set against a bright neon pink circle background, vibrant colors, playful vibe" width="80" height="80" src="/assets/site-index-testimonials-image-1.webp" alt="תמונה של תלמיד מהכיתה" class="index-testimonials-section__avatar">
+          <div class="index-testimonials-section__avatar-glow"></div>
+        </div>
+        <div class="index-testimonials-section__card-content">
+          <h3 class="index-testimonials-section__card-name">דניאל ״המלך״</h3>
+          <p class="index-testimonials-section__card-quote">״כל הפסקה אני בודק מי מוביל בטורניר. אמא שלי חושבת שאני לומד מתמטיקה.״</p>
+        </div>
+        <div class="index-testimonials-section__emoji-reaction" aria-hidden="true">😂</div>
+      </article>
+
+      <!-- Card 2 (staggered upward) -->
+      <article class="index-testimonials-section__card index-testimonials-section__card--staggered">
+        <div class="index-testimonials-section__avatar-wrapper">
+          <img loading="lazy" decoding="async" data-placeholder="index-testimonials-image-2" data-context="A fun, cartoon-style avatar of a teenage girl with glasses and curly hair, laughing, set against a bright neon cyan circle background, vibrant colors, playful vibe" width="80" height="80" src="/assets/site-index-testimonials-image-2.webp" alt="תמונה של תלמידה מהכיתה" class="index-testimonials-section__avatar">
+          <div class="index-testimonials-section__avatar-glow"></div>
+        </div>
+        <div class="index-testimonials-section__card-content">
+          <h3 class="index-testimonials-section__card-name">מיכל ״הבלשית״</h3>
+          <p class="index-testimonials-section__card-quote">״הסיפורים ההזויים מהכיתה? אני מתה על זה. שלחתי לכל החברות מהשכבה.״</p>
+        </div>
+        <div class="index-testimonials-section__emoji-reaction" aria-hidden="true">🔥</div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="index-testimonials-section__card">
+        <div class="index-testimonials-section__avatar-wrapper">
+          <img loading="lazy" decoding="async" data-placeholder="index-testimonials-image-3" data-context="A fun, cartoon-style avatar of a teenage boy with headphones around his neck, giving a thumbs up, set against a bright neon lime circle background, vibrant colors, playful vibe" width="80" height="80" src="/assets/site-index-testimonials-image-3.webp" alt="תמונה של תלמיד מהכיתה" class="index-testimonials-section__avatar">
+          <div class="index-testimonials-section__avatar-glow"></div>
+        </div>
+        <div class="index-testimonials-section__card-content">
+          <h3 class="index-testimonials-section__card-name">יואב ״הפרשן״</h3>
+          <p class="index-testimonials-section__card-quote">״הרכילות פה יותר מעניינת מכל הליגה. תביאו פופקורן.״</p>
+        </div>
+        <div class="index-testimonials-section__emoji-reaction" aria-hidden="true">🍿</div>
+      </article>
+    </div>
+
+    <div class="index-testimonials-section__trust-row">
+      <span class="index-testimonials-section__trust-item">הומור כיתתי אמיתי</span>
+      <span class="index-testimonials-section__trust-dot" aria-hidden="true">•</span>
+      <span class="index-testimonials-section__trust-item">בדיחות פנימיות שכולם מבינים</span>
+      <span class="index-testimonials-section__trust-dot" aria-hidden="true">•</span>
+      <span class="index-testimonials-section__trust-item">אנרגיה של תחרות ידידותית</span>
+    </div>
+  </div>
+
+  <!-- Bottom divider: scalloped notebook-paper cut edge with neon pink underglow -->
+  <div class="index-testimonials-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="index-testimonials-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <!-- Scalloped notebook-paper edge filling the bottom portion -->
+      <path d="M0,80 L0,35 
+               Q30,30 60,38 T120,42 Q150,32 180,38 T240,35 Q270,40 300,38 T360,42 
+               Q390,32 420,38 T480,35 Q510,40 540,38 T600,42 
+               Q630,32 660,38 T720,35 Q750,40 780,38 T840,42 
+               Q870,32 900,38 T960,35 Q990,40 1020,38 T1080,42 
+               Q1110,32 1140,38 T1200,35 L1200,80 Z" fill="#0A0A0F"/>
+      <!-- Neon pink underglow line along the scalloped edge -->
+      <path d="M0,36 
+               Q30,31 60,39 T120,43 Q150,33 180,39 T240,36 Q270,41 300,39 T360,43 
+               Q390,33 420,39 T480,36 Q510,41 540,39 T600,43 
+               Q630,33 660,39 T720,36 Q750,41 780,39 T840,43 
+               Q870,33 900,39 T960,36 Q990,41 1020,39 T1080,43 
+               Q1110,33 1140,39 T1200,36" fill="#0A0A0F" stroke="var(--primary)" stroke-width="3" filter="url(#index-testimonials-neon-glow)" opacity="0.8"/>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="5" id="stats" class="index-stats-section" data-layout-spec="בית-stats">
+    <div class="index-stats-section__container">
+        <!-- Intro Block -->
+        <div class="index-stats-section__intro">
+            <h2 class="index-stats-section__heading">המספרים של הכי מופרעת בכיתה</h2>
+            <p class="index-stats-section__subheading">כל הצבעה, כל טורניר וכל סיפור הזוי — מאחורי כל אחד יש מספר שרק הולך וגדל. בואו לראות כמה רעש עשינו השבוע.</p>
+        </div>
+
+        <!-- 4-Column Stat Grid -->
+        <div class="index-stats-section__grid">
+            <div class="index-stats-section__stat-card">
+                <span class="index-stats-section__stat-number">1,247</span>
+                <span class="index-stats-section__stat-label">הצבעות "מי אתם מעדיפים"</span>
+                <span class="index-stats-section__stat-desc">כן, הגענו לאלף. תתחדשו.</span>
+            </div>
+            <div class="index-stats-section__stat-card">
+                <span class="index-stats-section__stat-number">84</span>
+                <span class="index-stats-section__stat-label">טורנירי מונדיאל שמות</span>
+                <span class="index-stats-section__stat-desc">מי ניצח הפעם? כנראה דניאל.</span>
+            </div>
+            <div class="index-stats-section__stat-card">
+                <span class="index-stats-section__stat-number">365+</span>
+                <span class="index-stats-section__stat-label">סיפורים הזויים מהכיתה</span>
+                <span class="index-stats-section__stat-desc">כל יום סיפור חדש, כל יום הזיה.</span>
+            </div>
+            <div class="index-stats-section__stat-card">
+                <span class="index-stats-section__stat-number">17</span>
+                <span class="index-stats-section__stat-label">רכילויות השבוע</span>
+                <span class="index-stats-section__stat-desc">ששש... לא נגיד מי, אבל כולם יודעים.</span>
+            </div>
+        </div>
+
+        <!-- Horizontal Proof Blurbs Strip -->
+        <div class="index-stats-section__proof-strip">
+            <div class="index-stats-section__proof-item">
+                <div class="index-stats-section__proof-icon-wrapper">
+                    <svg data-element-type="icon" data-icon-type="svg" class="index-stats-section__proof-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="index-stats-section__proof-text"><strong>תוכן טרי כל יום</strong> — כי בכיתה תמיד קורה משהו חדש</span>
+            </div>
+            <div class="index-stats-section__proof-item">
+                <div class="index-stats-section__proof-icon-wrapper">
+                    <svg data-element-type="icon" data-icon-type="svg" class="index-stats-section__proof-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 21V19C22.9986 17.1771 21.765 15.5857 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 3.13C17.7699 3.58343 19.0078 5.17787 19.0078 7.005C19.0078 8.83213 17.7699 10.4266 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="index-stats-section__proof-text"><strong>100% מוכר מהכיתה</strong> — כל השמות, כל הפרצופים, כל הבדיחות</span>
+            </div>
+            <div class="index-stats-section__proof-item">
+                <div class="index-stats-section__proof-icon-wrapper">
+                    <svg data-element-type="icon" data-icon-type="svg" class="index-stats-section__proof-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 12V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 6L12 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 2V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="index-stats-section__proof-text"><strong>שתפו עם החבר'ה</strong> — שיגיעו גם, שיהיה פה טירוף</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Divider: Acid-Lime Pulse Line -->
+    <div class="index-stats-section__divider-wrapper">
+        <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="index-stats-pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0"/>
+                    <stop offset="20%" stop-color="var(--accent)" stop-opacity="0.8"/>
+                    <stop offset="50%" stop-color="var(--accent)" stop-opacity="1"/>
+                    <stop offset="80%" stop-color="var(--accent)" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+            <!-- Pulse line dissolving into dark field -->
+            <path d="M0,80 L0,20 Q150,10 300,25 T600,18 Q750,28 900,22 T1200,20 L1200,80 Z" fill="#0D0D15"/>
+            <path d="M0,22 Q150,12 300,27 T600,20 Q750,30 900,24 T1200,22" fill="#0D0D15" stroke="url(#index-stats-pulse-grad)" stroke-width="2"/>
+        </svg>
+    </div>
+</section>
+
+<section data-band-index="6" id="cta" class="index-cta-section" data-layout-spec="בית-cta">
+    <div class="cta-container">
+        <div class="cta-content">
+            <h2>בואו נבנה ביחד את הכיתה הכי מופרעת!</h2>
+            <p>יש לכם רעיון מטורף לסקר, סיפור הזוי שקרה בהפסקה, או שאתם פשוט רוצים להיות חלק מהבלאגן הכי גדול בשכבה? שלחו לנו הודעה ונדאג שכל הכיתה תשמע על זה. אנחנו מחפשים את כל הטירוף, הרכילות והתחרויות — בואו נהפוך את זה לדבר הכי מדובר בבית ספר.</p>
+            <div class="reassurance-list">
+                <div class="reassurance-item">
+                    <svg class="reassurance-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>הצטרפות קלה ומהירה — בלי כאב ראש</span>
+                </div>
+                <div class="reassurance-item">
+                    <svg class="reassurance-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>הקהילה שלנו עולה לאוויר — תהיו הראשונים</span>
+                </div>
+            </div>
+        </div>
+        <div class="cta-form-card">
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="cta-name">שם מלא</label>
+                    <input type="text" id="cta-name" name="name" placeholder="איך קוראים לך?" required>
+                </div>
+                <div class="form-group">
+                    <label for="cta-email">אימייל</label>
+                    <input type="email" id="cta-email" name="email" placeholder="האימייל שלך" required>
+                </div>
+                <div class="form-group">
+                    <label for="cta-phone">טלפון</label>
+                    <input type="tel" id="cta-phone" name="phone" placeholder="מספר טלפון (לא חובה)">
+                </div>
+                <div class="form-group">
+                    <label for="cta-message">הודעה</label>
+                    <textarea id="cta-message" name="message" rows="3" placeholder="מה בא לך לספר? רעיון, רכילות, הצעה..." required></textarea>
+                </div>
+                <div class="privacy-consent">
+                    <label class="privacy-consent-label">
+                        <input type="checkbox" name="privacy_consent" class="privacy-consent-checkbox" required>
+                        <span>קראתי ואני מסכים/ה ל<a href="/terms" target="_blank">תנאי השימוש</a> ול<a href="/privacy" target="_blank">מדיניות הפרטיות</a></span>
+                    </label>
+                </div>
+                <button type="submit" class="btn-submit">שלחו לי עדכונים חמים 🔥</button>
+            </form>
+        </div>
+    </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" dir="rtl">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Company Info -->
+      <div class="footer-col footer-info-col">
+        <img src="/assets/5-education-school-class-community-logo.webp" alt="כיתה בהפרעה 5" class="logo">
+        <p class="footer-tagline">הזירה החברתית של הכיתה — בדיחות, סקרים, סיפורים וכל הרכילות במקום אחד. בואו להיות חלק מההפרעה.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col footer-links-col">
+        <h4>ניווט מהיר</h4>
+        <ul class="footer-links">
+          <li><a href="#features">תכונות</a></li>
+          <li><a href="#showcase">תצוגה</a></li>
+          <li><a href="#benefits">יתרונות</a></li>
+          <li><a href="#testimonials">המלצות</a></li>
+          <li><a href="#stats">נתונים</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-col footer-contact-col">
+        <h4>צור קשר</h4>
+        <ul class="footer-contact">
+          <li>
+            <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+            <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span>
+          </li>
+          <li>
+            <span class="contact-icon"><i class="fas fa-phone"></i></span>
+            <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span>
+          </li>
+          <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="contact-text">[business_address]</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Business Hours -->
+      <div class="footer-col footer-hours-col">
+        <h4>שעות פעילות</h4>
+        <ul class="footer-hours">
+          <li><a href="/"><span class="hours-day">ימים א'–ה'</span> <span class="hours-time">09:00–18:00</span></a></li>
+          <li><a href="/"><span class="hours-day">יום ו'</span> <span class="hours-time">09:00–13:00</span></a></li>
+          <li><a href="/"><span class="hours-day">שבת</span> <span class="hours-time">סגור</span></a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-col footer-social-col">
+        <h4>עקבו אחרינו</h4>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook" data-zappy-social-placeholder="true"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram" data-zappy-social-placeholder="true"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp" data-zappy-social-placeholder="true"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span class="copyright">© 2026 כיתה בהפרעה 5. כל הזכויות שמורות.</span>
+      </div>
+      <div class="footer-bottom-right">
+        <a href="/privacy">מדיניות פרטיות</a>
+        <a href="/terms">תנאי שימוש</a>
+        <a href="/accessibility">נגישות</a>
+        <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(245,243,238,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main:not(.courses-page-main)>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>

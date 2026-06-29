@@ -1,0 +1,74 @@
+# כיתה בהפרעה 5 — Generative Engine Optimization Map
+
+> A fun and chaotic class website for a school classroom, packed with interactive features like 'Who do you prefer?' polls, World Cup-style tournaments using classmates' names, wild and bizarre stories from class life, and juicy class gossip. The vibe is playful, irreverent, and very relatable to school-age kids — think inside jokes, silly drama, and competitive fun all in one place.
+
+---
+
+## Pages
+
+### בית
+https://5-fda3ffd8.zappy5.app
+המקום שבו הכיתה מתעוררת לחיים! הצביעו בסקרים כמו &#39;את מי אתם מעדיפים?&#39;, השתתפו בטורנירים מטורפים, קראו סיפורים פרועים ורכילות עסיסית מחיי הכיתה. היכנסו עכשיו ובואו לעשות הפרעות!
+
+### תודה שפניתם אלינו
+https://5-fda3ffd8.zappy5.app/thank-you
+כיתה בהפרעה 5 - תודה שפניתם אלינו
+
+## Legal & Policy
+
+### Privacy Policy
+https://5-fda3ffd8.zappy5.app/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://5-fda3ffd8.zappy5.app/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://5-fda3ffd8.zappy5.app/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://5-fda3ffd8.zappy5.app
+- Endpoint: https://5-fda3ffd8.zappy5.app/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text)
+  - `email` (email)
+  - `phone` (tel)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About כיתה בהפרעה 5
+A fun and chaotic class website for a school classroom, packed with interactive features like 'Who do you prefer?' polls, World Cup-style tournaments using classmates' names, wild and bizarre stories from class life, and juicy class gossip. The vibe is playful, irreverent, and very relatable to school-age kids — think inside jokes, silly drama, and competitive fun all in one place.
+
+## Services/Products
+- מי אתם מעדיפים - משחק העדפות
+- תחרויות בסגנון מונדיאל עם שמות ילדים
+- סיפורים הזויים מהכיתה
+- רכילות כיתתית
+
+## Target Audience
+- תלמידי הכיתה וחבריהם
+
+## Industry
+Education / School Class Community
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://5-fda3ffd8.zappy5.app/sitemap.xml
+- Robots: https://5-fda3ffd8.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://5-fda3ffd8.zappy5.app/llms-full.txt
