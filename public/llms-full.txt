@@ -2,13 +2,13 @@
 
 A fun and chaotic class website for a school classroom, packed with interactive features like 'Who do you prefer?' polls, World Cup-style tournaments using classmates' names, wild and bizarre stories from class life, and juicy class gossip. The vibe is playful, irreverent, and very relatable to school-age kids — think inside jokes, silly drama, and competitive fun all in one place.
 
-Source: https://5-fda3ffd8.zappy5.app
+Source: https://example.com
 
 ---
 
 ## ברוכים הבאים לכאוס — כיתה בהפרעה 5
 
-URL: https://5-fda3ffd8.zappy5.app
+URL: https://example.com
 Description: המקום שבו הכיתה מתעוררת לחיים! הצביעו בסקרים כמו &#39;את מי אתם מעדיפים?&#39;, השתתפו בטורנירים מטורפים, קראו סיפורים פרועים ורכילות עסיסית מחיי הכיתה. היכנסו עכשיו ובואו לעשות הפרעות!
 
 ברוכים הבאים לכאוס — כיתה בהפרעה 5
@@ -701,7 +701,7 @@ Description: המקום שבו הכיתה מתעוררת לחיים! הצביע�
 
 ## מדיניות פרטיות
 
-URL: https://5-fda3ffd8.zappy5.app/privacy
+URL: https://example.com/privacy
 Description: מדיניות הפרטיות שלנו - כיצד אנו אוספים, משתמשים ומגנים על המידע שלכם
 
 מדיניות פרטיות
@@ -965,7 +965,7 @@ Description: מדיניות הפרטיות שלנו - כיצד אנו אוספי
 
 ## הצהרת נגישות
 
-URL: https://5-fda3ffd8.zappy5.app/accessibility
+URL: https://example.com/accessibility
 Description: הצהרת הנגישות שלנו - מחויבותנו לנגישות דיגיטלית
 
 הצהרת נגישות
@@ -1238,7 +1238,7 @@ Description: הצהרת הנגישות שלנו - מחויבותנו לנגיש�
 
 ## תנאי שימוש
 
-URL: https://5-fda3ffd8.zappy5.app/terms
+URL: https://example.com/terms
 Description: תנאי השימוש באתר - הזכויות והחובות של המשתמשים
 
 תנאי שימוש
@@ -1530,7 +1530,7 @@ Description: תנאי השימוש באתר - הזכויות והחובות של
 
 ## תודה שפניתם אלינו
 
-URL: https://5-fda3ffd8.zappy5.app/thank-you
+URL: https://example.com/thank-you
 Description: כיתה בהפרעה 5 - תודה שפניתם אלינו
 
 תודה שפניתם אלינו
