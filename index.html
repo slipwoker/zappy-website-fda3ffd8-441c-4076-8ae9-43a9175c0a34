@@ -890,8 +890,8 @@
   <div class="index-features-section__container">
     <div class="index-features-section__intro">
       <p><span class="index-features-section__label">קצת על הכיתה</span>
-      </p><h2 class="index-features-section__title" style="">כיתה 5x</h2>
-      <p class="index-features-section__subtitle" style="">כל מה שקורה אצלנו — הכי מעניין, הכי מצחיק, הכי מצחיק והכי חשוב הכי מופרע&nbsp;<br>אם תכנסו לא תרצו לצאת אבל זה שווה את זה</p>
+      </p><h2 class="index-features-section__title" >כיתה 5x</h2>
+      <p class="index-features-section__subtitle" >כל מה שקורה אצלנו — הכי מעניין, הכי מצחיק, הכי מצחיק והכי חשוב הכי מופרע&nbsp;<br>אם תכנסו לא תרצו לצאת אבל זה שווה את זה</p>
     </div>
     <div class="index-features-section__grid">
       
@@ -1356,6 +1356,49 @@
             <path d="M0,22 Q150,12 300,27 T600,20 Q750,30 900,24 T1200,22" fill="#0D0D15" stroke="url(#index-stats-pulse-grad)" stroke-width="2"></path>
         </svg>
     </div>
+</section>
+
+<section id="class-poll" class="class-poll-section" dir="rtl" style="background: #0D0D15; padding: 80px 20px; text-align: center;">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <h2 style="font-size: 2rem; font-weight: 800; color: #FF4FA3; margin-bottom: 12px;">🗳️ הצבעת הכיתה</h2>
+    <p style="font-size: 1.1rem; color: #A7ABB4; margin-bottom: 32px;">בחרו את הילד שהכי ראוי לתואר – ומי ייקח את הכתר?</p>
+
+    <div id="pollOptionsContainer" style="display: flex; flex-direction: column; gap: 12px; max-width: 450px; margin: 0 auto 28px;"></div>
+
+    <div style="margin-bottom: 14px;">
+      <button id="pollVoteSubmit" style="background: linear-gradient(135deg, #3BE8FF, #2bb8d6); color: #121317; border: none; padding: 14px 42px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 18px rgba(59,232,255,0.35);">שלח הצבעה 🔥</button>
+    </div>
+
+    <p id="pollTotalText" style="color: #A7ABB4; font-size: 0.9rem; margin-bottom: 24px;">סה"כ הצבעות: 0</p>
+
+    <!-- Admin Panel -->
+    <div style="margin-top: 20px; border-top: 1px solid #2A2D35; padding-top: 20px; text-align: right;">
+      <details id="pollAdminDetails" style="background: #1a1d24; border: 1px solid #2A2D35; border-radius: 14px; padding: 20px;">
+        <summary style="color: #D9FF4A; font-weight: 700; cursor: pointer; font-size: 0.95rem;">⚙️ ניהול אפשרויות (מנהל)</summary>
+        <div style="margin-top: 14px;">
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 0.85rem; color: #A7ABB4;">
+            קוד מנהל:
+            <input type="password" id="pollAdminPinInput" placeholder="הקלד 1234" maxlength="4" style="width: 80px; padding: 8px 10px; background: #121317; border: 1px solid #2A2D35; border-radius: 6px; color: #F5F3EE; text-align: center; font-size: 0.85rem;">
+            <button id="pollAdminUnlockBtn" style="background: #D9FF4A; color: #121317; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem;">בטל נעילה</button>
+          </label>
+
+          <div id="pollAdminContent" style="display: none;">
+            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+              <input type="text" id="pollNewOptionInput" placeholder="שם הילד..." style="flex: 1; padding: 10px 14px; background: #121317; border: 1px solid #2A2D35; border-radius: 10px; color: #F5F3EE; font-size: 0.9rem;">
+              <button id="pollAddOptionBtn" style="background: #D9FF4A; color: #121317; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer;">הוסף</button>
+            </div>
+            <ul id="pollAdminOptionsList" style="list-style: none; padding: 0; margin: 0 0 12px; text-align: right;"></ul>
+            <button id="pollResetVotesBtn" style="background: rgba(255,79,163,0.15); color: #FF4FA3; border: 1px solid rgba(255,79,163,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">איפוס הצבעות</button>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Results bar -->
+    <div id="pollResultsBar" style="margin-top: 28px; background: #1a1d24; border-radius: 12px; overflow: hidden; border: 1px solid #2A2D35;">
+      <div id="pollResultsInner" style="display: flex; min-height: 10px;"></div>
+    </div>
+  </div>
 </section>
 
 <section data-band-index="6" id="cta" class="index-cta-section" data-layout-spec="בית-cta">

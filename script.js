@@ -1427,6 +1427,244 @@ window.onload = function() {
     }
 })();
 
+/* ZAPPY_CUSTOM_JS_START:3273e4243e8e */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  var ADMIN_PIN = '1234';
+  var isAdminUnlocked = false;
+
+  var defaultOptions = ['דניאל', 'מיכל', 'יואב', 'נועה', 'איתי'];
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem('classpoll_state_v3');
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    return null;
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem('classpoll_state_v3', JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  function getState() {
+    var state = loadState();
+    if (!state) {
+      state = {
+        options: defaultOptions.map(function(name, i) {
+          return { id: i, name: name, votes: 0 };
+        }),
+        voted: false,
+        nextId: defaultOptions.length
+      };
+      saveState(state);
+    }
+    return state;
+  }
+
+  function escapeHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  var optionsContainer = document.getElementById('pollOptionsContainer');
+  var voteSubmitBtn = document.getElementById('pollVoteSubmit');
+  var totalText = document.getElementById('pollTotalText');
+  var resultsInner = document.getElementById('pollResultsInner');
+  var adminPinInput = document.getElementById('pollAdminPinInput');
+  var adminUnlockBtn = document.getElementById('pollAdminUnlockBtn');
+  var adminContent = document.getElementById('pollAdminContent');
+  var newOptionInput = document.getElementById('pollNewOptionInput');
+  var addOptionBtn = document.getElementById('pollAddOptionBtn');
+  var adminOptionsList = document.getElementById('pollAdminOptionsList');
+  var resetVotesBtn = document.getElementById('pollResetVotesBtn');
+
+  if (!optionsContainer) return;
+
+  var selectedId = null;
+
+  function totalVotes(state) {
+    return state.options.reduce(function(acc, o) { return acc + o.votes; }, 0);
+  }
+
+  function renderOptions(state) {
+    optionsContainer.innerHTML = '';
+    state.options.forEach(function(opt) {
+      var div = document.createElement('div');
+      var isSelected = selectedId === opt.id;
+      div.setAttribute('data-opt-id', opt.id);
+      div.style.cssText = 'display:flex;align-items:center;gap:12px;padding:14px 16px;background:#121317;border:2px solid ' + (isSelected ? '#FF4FA3' : '#2A2D35') + ';border-radius:14px;cursor:' + (state.voted ? 'default' : 'pointer') + ';box-shadow:' + (isSelected ? '0 0 15px rgba(255,79,163,0.15)' : 'none') + ';';
+
+      var radio = document.createElement('div');
+      radio.style.cssText = 'width:22px;height:22px;border-radius:50%;border:2px solid ' + (isSelected ? '#FF4FA3' : '#A7ABB4') + ';flex-shrink:0;display:flex;align-items:center;justify-content:center;background:' + (isSelected ? '#FF4FA3' : 'transparent') + ';';
+      if (isSelected) {
+        var dot = document.createElement('div');
+        dot.style.cssText = 'width:8px;height:8px;border-radius:50%;background:#fff;';
+        radio.appendChild(dot);
+      }
+
+      var nameSpan = document.createElement('span');
+      nameSpan.textContent = opt.name;
+      nameSpan.style.cssText = 'font-size:1.05rem;font-weight:600;flex:1;color:#F5F3EE;';
+
+      var votesSpan = document.createElement('span');
+      votesSpan.textContent = opt.votes + ' קולות';
+      votesSpan.style.cssText = 'font-size:0.85rem;color:#A7ABB4;background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:20px;';
+
+      div.appendChild(radio);
+      div.appendChild(nameSpan);
+      div.appendChild(votesSpan);
+
+      if (!state.voted) {
+        div.addEventListener('click', function() {
+          selectedId = opt.id;
+          renderOptions(state);
+        });
+      }
+
+      optionsContainer.appendChild(div);
+    });
+
+    totalText.textContent = 'סה"כ הצבעות: ' + totalVotes(state);
+
+    if (state.voted) {
+      voteSubmitBtn.textContent = '✅ תודה על ההצבעה!';
+      voteSubmitBtn.disabled = true;
+      voteSubmitBtn.style.opacity = '0.6';
+      voteSubmitBtn.style.cursor = 'not-allowed';
+    } else {
+      voteSubmitBtn.textContent = 'שלח הצבעה 🔥';
+      voteSubmitBtn.disabled = false;
+      voteSubmitBtn.style.opacity = '1';
+      voteSubmitBtn.style.cursor = 'pointer';
+    }
+
+    renderResultsBar(state);
+  }
+
+  function renderAdminList(state) {
+    adminOptionsList.innerHTML = '';
+    state.options.forEach(function(opt) {
+      var li = document.createElement('li');
+      li.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:4px;font-size:0.9rem;color:#F5F3EE;';
+      var span = document.createElement('span');
+      span.textContent = opt.name + ' (' + opt.votes + ' קולות)';
+      var btn = document.createElement('button');
+      btn.textContent = 'הסר';
+      btn.style.cssText = 'background:rgba(255,79,163,0.2);color:#FF4FA3;border:none;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:0.8rem;';
+      btn.addEventListener('click', function() {
+        var st = getState();
+        st.options = st.options.filter(function(o) { return o.id !== opt.id; });
+        if (selectedId === opt.id) selectedId = null;
+        saveState(st);
+        renderOptions(st);
+        renderAdminList(st);
+      });
+      li.appendChild(span);
+      li.appendChild(btn);
+      adminOptionsList.appendChild(li);
+    });
+  }
+
+  function renderResultsBar(state) {
+    var total = totalVotes(state);
+    resultsInner.innerHTML = '';
+    if (total === 0) return;
+    var colors = ['#FF4FA3','#3BE8FF','#D9FF4A','#ff8c42','#a78bfa','#34d399','#f472b6','#60a5fa'];
+    state.options.forEach(function(opt, i) {
+      var seg = document.createElement('div');
+      var pct = (opt.votes / total) * 100;
+      seg.style.cssText = 'height:10px;width:' + pct + '%;background:' + colors[i % colors.length] + ';transition:width 0.5s ease;';
+      seg.title = opt.name + ': ' + opt.votes + ' (' + Math.round(pct) + '%)';
+      resultsInner.appendChild(seg);
+    });
+  }
+
+  // Initial render
+  var initialState = getState();
+  if (initialState.voted) selectedId = null;
+  renderOptions(initialState);
+  renderAdminList(initialState);
+
+  // Vote button
+  voteSubmitBtn.addEventListener('click', function() {
+    var state = getState();
+    if (state.voted) return;
+    if (selectedId === null) {
+      alert('בחרו אפשרות לפני ההצבעה!');
+      return;
+    }
+    var opt = state.options.find(function(o) { return o.id === selectedId; });
+    if (opt) {
+      opt.votes++;
+      state.voted = true;
+      saveState(state);
+      renderOptions(state);
+    }
+  });
+
+  // Admin unlock
+  adminUnlockBtn.addEventListener('click', function() {
+    var pin = adminPinInput.value;
+    if (pin !== ADMIN_PIN) {
+      alert('קוד מנהל שגוי. רמז: 1234');
+      return;
+    }
+    isAdminUnlocked = true;
+    adminContent.style.display = 'block';
+    adminUnlockBtn.textContent = '✓ נעול';
+    adminUnlockBtn.style.background = '#34d399';
+    renderAdminList(getState());
+  });
+
+  // Add option
+  addOptionBtn.addEventListener('click', function() {
+    if (!isAdminUnlocked) { alert('יש להזין קוד מנהל תחילה'); return; }
+    var name = newOptionInput.value.trim();
+    if (!name) return;
+    var state = getState();
+    state.options.push({ id: state.nextId, name: name, votes: 0 });
+    state.nextId++;
+    saveState(state);
+    newOptionInput.value = '';
+    renderOptions(state);
+    renderAdminList(state);
+  });
+
+  newOptionInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') addOptionBtn.click();
+  });
+
+  // Reset votes
+  resetVotesBtn.addEventListener('click', function() {
+    if (!isAdminUnlocked) return;
+    if (!confirm('בטוח לאפס את כל ההצבעות?')) return;
+    var state = getState();
+    state.options.forEach(function(o) { o.votes = 0; });
+    state.voted = false;
+    selectedId = null;
+    saveState(state);
+    renderOptions(state);
+    renderAdminList(state);
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:3273e4243e8e */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
