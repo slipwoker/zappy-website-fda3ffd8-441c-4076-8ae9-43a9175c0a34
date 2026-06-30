@@ -1197,10 +1197,10 @@
     
     <!-- Decorative top elements -->
     <div class="gossip-decor gossip-decor--top-left" aria-hidden="true">
-      <span class="gossip-emoji-float">📝</span>
+      <span class="gossip-emoji-float" style="color: rgb(245, 243, 238) !important;">📝</span>
     </div>
     <div class="gossip-decor gossip-decor--top-right" aria-hidden="true">
-      <span class="gossip-emoji-float">🤫</span>
+      <span class="gossip-emoji-float" style="color: rgb(245, 243, 238) !important;">🤫</span>
     </div>
 
     <!-- Header -->
@@ -1241,7 +1241,7 @@
 
         <!-- Anonymous Toggle -->
         <div class="gossip-field gossip-field--checkbox">
-          <label class="gossip-checkbox-label" for="gossip-anonymous">
+          <label class="gossip-checkbox-label" for="gossip-anonymous" style="color: rgb(245, 243, 238) !important;">
             <input type="checkbox" id="gossip-anonymous" name="anonymous" class="gossip-checkbox" checked="">
             <span class="gossip-checkbox-custom" aria-hidden="true"></span>
             <span class="gossip-checkbox-text">
@@ -1253,7 +1253,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="gossip-submit-btn" id="gossip-submit">
+        <button type="submit" class="gossip-submit-btn btn btn-primary" id="gossip-submit" data-element-type="button" data-element-id="gossip-submit" data-native-element="true" style="outline: none; border-color: transparent !important; color: rgb(255, 255, 255) !important; background-color: transparent !important; background-image: linear-gradient(135deg, rgb(77, 255, 165), rgb(50, 255, 150)) !important;">
           <span class="gossip-btn-text">שפיכת תה</span>
           <span class="gossip-btn-icon" aria-hidden="true">☕</span>
           <span class="gossip-btn-sparkle" aria-hidden="true">✨</span>
@@ -1261,8 +1261,8 @@
 
         <!-- Success Message (hidden by default) -->
         <div class="gossip-success" id="gossip-success" role="status" aria-live="polite">
-          <span class="gossip-success-icon" aria-hidden="true">🎉</span>
-          <p class="gossip-success-text">התה נשפך בהצלחה! הרכילות שלכם התקבלה ונשמרת בכספת הסודות.</p>
+          <p class="zappy-editable"><span class="gossip-success-icon" aria-hidden="true">🎉</span>
+          </p><p class="gossip-success-text">התה נשפך בהצלחה! הרכילות שלכם התקבלה ונשמרת בכספת הסודות.</p>
         </div>
 
       </form>
