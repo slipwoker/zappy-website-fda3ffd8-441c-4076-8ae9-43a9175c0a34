@@ -5562,6 +5562,527 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 ._access-icon {
   display: flex !important;
 }
+
+/* AI-generated section */
+/* ============================================
+   Submit Story Section — Dark Neon Theme
+   ============================================ */
+.submit-story-section {
+  background: #0a0a0f;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(255, 79, 163, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(0, 255, 255, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 79, 163, 0.03) 0%, transparent 80%);
+  padding: 80px 20px 100px;
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+  font-family: system-ui, sans-serif;
+}
+
+.submit-story-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.submit-story-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.submit-story-icon {
+  display: block;
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.submit-story-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+  text-shadow: 0 0 30px rgba(255, 79, 163, 0.4);
+  letter-spacing: -0.5px;
+}
+
+.submit-story-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Card */
+.submit-story-card {
+  background: rgba(20, 20, 35, 0.85);
+  border: 1px solid rgba(255, 79, 163, 0.3);
+  border-radius: 20px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-story-card:hover {
+  border-color: rgba(255, 79, 163, 0.55);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(255, 79, 163, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Decorative glows */
+.submit-story-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.submit-story-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+.submit-story-glow--top {
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 79, 163, 0.25);
+  top: -60px;
+  left: -60px;
+}
+
+.submit-story-glow--bottom {
+  width: 180px;
+  height: 180px;
+  background: rgba(0, 255, 255, 0.2);
+  bottom: -50px;
+  right: -50px;
+}
+
+/* Form */
+.submit-story-form {
+  position: relative;
+  z-index: 1;
+}
+
+.form-field {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 79, 163, 0.25);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  color: #ffffff;
+  font-family: system-ui, sans-serif;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+  outline: none;
+  direction: rtl;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.form-input:hover,
+.form-textarea:hover {
+  border-color: rgba(255, 79, 163, 0.5);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: rgba(255, 79, 163, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 4px rgba(255, 79, 163, 0.1),
+    0 0 20px rgba(255, 79, 163, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+.form-error {
+  display: none;
+  font-size: 0.85rem;
+  color: #ff6b8a;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.form-field.error .form-input,
+.form-field.error .form-textarea {
+  border-color: #ff6b8a;
+  box-shadow: 0 0 0 3px rgba(255, 107, 138, 0.15);
+}
+
+.form-field.error .form-error {
+  display: block;
+}
+
+.form-char-count {
+  text-align: left;
+  direction: ltr;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.form-char-count.warning {
+  color: #ffb74d;
+}
+
+.form-char-count.danger {
+  color: #ff6b8a;
+}
+
+/* Submit Button */
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary, #FF4FA3) 0%, #ff2d8a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 32px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 6px 24px rgba(255, 79, 163, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  margin-top: 8px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 32px rgba(255, 79, 163, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, #ff5db8 0%, #ff3d97 100%);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 4px 16px rgba(255, 79, 163, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.submit-btn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+.submit-btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+.submit-btn-icon {
+  font-size: 1.4rem;
+  position: relative;
+  z-index: 1;
+  animation: rocket-wiggle 2s ease-in-out infinite;
+}
+
+@keyframes rocket-wiggle {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-3deg); }
+  75% { transform: translateY(-3px) rotate(3deg); }
+}
+
+/* Button sparkles */
+.submit-btn-sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: sparkle-fly 1.5s ease-out infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.submit-btn-sparkle--1 {
+  top: 20%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.submit-btn-sparkle--2 {
+  top: 60%;
+  left: 60%;
+  animation-delay: 0.5s;
+}
+
+.submit-btn-sparkle--3 {
+  top: 30%;
+  left: 75%;
+  animation-delay: 1s;
+}
+
+@keyframes sparkle-fly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-8px, -12px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-20px, -30px) scale(0);
+  }
+}
+
+/* Success State */
+.submit-story-success {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.submit-story-success[hidden] {
+  display: none;
+}
+
+.success-icon {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: success-bounce 0.6s ease-out;
+}
+
+@keyframes success-bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.success-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+}
+
+.success-message {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 28px 0;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-reset-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 79, 163, 0.4);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+  transition: all 0.25s ease;
+}
+
+.success-reset-btn:hover {
+  background: rgba(255, 79, 163, 0.15);
+  border-color: rgba(255, 79, 163, 0.7);
+  box-shadow: 0 0 20px rgba(255, 79, 163, 0.2);
+}
+
+.success-reset-btn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+/* Featured Stories */
+.submit-story-featured {
+  margin-top: 56px;
+  text-align: center;
+}
+
+.featured-label {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 24px 0;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.featured-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.featured-story-item {
+  display: flex;
+}
+
+.featured-story-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 79, 163, 0.2);
+  border-radius: 14px;
+  padding: 20px 18px;
+  text-align: center;
+  transition: all 0.3s ease;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.featured-story-card:hover {
+  background: rgba(255, 79, 163, 0.08);
+  border-color: rgba(255, 79, 163, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.featured-story-emoji {
+  font-size: 2rem;
+  display: block;
+}
+
+.featured-story-excerpt {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.featured-story-author {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .submit-story-section {
+    padding: 60px 16px 70px;
+  }
+
+  .submit-story-title {
+    font-size: 2rem;
+  }
+
+  .submit-story-subtitle {
+    font-size: 1rem;
+  }
+
+  .submit-story-card {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+  }
+
+  .featured-stories-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .featured-story-card {
+    padding: 16px 14px;
+  }
+
+  .submit-story-icon {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .submit-story-title {
+    font-size: 1.6rem;
+  }
+
+  .submit-story-card {
+    padding: 22px 16px;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .submit-btn {
+    font-size: 1rem;
+    padding: 14px 20px;
+  }
+
+  .success-title {
+    font-size: 1.3rem;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
