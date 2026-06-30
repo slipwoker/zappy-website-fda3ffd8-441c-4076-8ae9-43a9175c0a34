@@ -1194,7 +1194,6 @@ window.onload = function() {
     }, true);
 };
 
-
 // Zappy Contact Form API Integration (Fallback)
 (function() {
     if (window.zappyContactFormLoaded) {
@@ -1850,6 +1849,72 @@ window.onload = function() {
   }
 })();
 /* ZAPPY_CUSTOM_JS_END:2a11dd8ba2ca */
+
+/* ZAPPY_BLOCK_RUNTIME_V3 */
+(function(){
+  if (window.__zappyBlockRuntimeInstalled) return;
+  window.__zappyBlockRuntimeInstalled = true;
+  function b64ToUtf8(b64){
+    try {
+      var bin = atob(String(b64 || ''));
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return new TextDecoder('utf-8').decode(bytes);
+    } catch (e) { return ''; }
+  }
+  function hydrate(section){
+    try {
+      if (!section || section.getAttribute('data-zappy-hydrated') === '1') return;
+      var frame = section.querySelector('iframe[data-zappy-block-frame]');
+      if (!frame) return;
+      var doc = b64ToUtf8(section.getAttribute('data-zappy-block-doc'));
+      if (!doc) return;
+      frame.setAttribute('srcdoc', doc);
+      section.setAttribute('data-zappy-hydrated', '1');
+    } catch (e) {}
+  }
+  function hydrateAll(root){
+    var scope = (root && root.querySelectorAll) ? root : document;
+    var nodes = scope.querySelectorAll('section[data-zappy-block][data-zappy-block-doc]');
+    for (var i = 0; i < nodes.length; i++) hydrate(nodes[i]);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ hydrateAll(document); });
+  } else {
+    hydrateAll(document);
+  }
+  // Catch blocks inserted later (editor live-insert / SPA navigation).
+  try {
+    var mo = new MutationObserver(function(muts){
+      for (var i = 0; i < muts.length; i++){
+        var added = muts[i].addedNodes || [];
+        for (var j = 0; j < added.length; j++){
+          var n = added[j];
+          if (!n || n.nodeType !== 1) continue;
+          if (n.matches && n.matches('section[data-zappy-block][data-zappy-block-doc]')) hydrate(n);
+          if (n.querySelectorAll) hydrateAll(n);
+        }
+      }
+    });
+    mo.observe(document.documentElement || document.body, { childList: true, subtree: true });
+  } catch (e) {}
+  // Auto-size block iframes from their inner CONTENT height. The inner bridge
+  // measures a content wrapper (not the iframe viewport), so this is a stable
+  // fixed point — setting the iframe height does NOT change the reported content
+  // height, hence no feedback loop and no need for an arbitrary upper clamp. We
+  // only write when the value actually changed to avoid redundant style churn.
+  window.addEventListener('message', function(e){
+    var d = e && e.data;
+    if (!d || d.__zappyBlock !== true || d.type !== 'resize') return;
+    if (typeof d.id !== 'string') return;
+    var frame = document.querySelector('iframe[data-zappy-block-frame="' + d.id.replace(/"/g, '') + '"]');
+    var h = parseInt(d.height, 10);
+    if (!frame || !(h > 0)) return;
+    var cur = parseInt(frame.style.height, 10) || 0;
+    if (Math.abs(cur - h) >= 1) frame.style.height = h + 'px';
+  });
+})();
+/* ZAPPY_BLOCK_RUNTIME_END */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
