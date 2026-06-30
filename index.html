@@ -1356,62 +1356,38 @@
     </div>
 </section>
 
-<section id="class-poll" class="class-poll-section" dir="rtl" style="background: rgb(13, 13, 21); padding: 80px 20px; text-align: center;">
-  <div style="max-width: 700px; margin: 0 auto;">
+<section id="class-poll" class="class-poll-section" dir="rtl" style="background: rgb(13, 13, 21); padding: 80px 20px; text-align: center;"><div style="max-width: 700px; margin: 0 auto;">
     <h2 style="font-size: 2rem; font-weight: 800; color: #FF4FA3; margin-bottom: 12px;">🗳️ הצבעת הכיתה</h2>
     <p style="font-size: 1.1rem; color: #A7ABB4; margin-bottom: 32px;">בחרו את הילד שהכי ראוי לתואר – ומי ייקח את הכתר?</p>
 
     <div id="pollOptionsContainer" style="display: flex; flex-direction: column; gap: 12px; max-width: 450px; margin: 0 auto 28px;"></div>
 
+    <p id="pollError" style="color: #FF4FA3; font-size: 0.9rem; margin: -16px 0 16px; display: none;">יש לבחור אפשרות לפני ההצבעה</p>
+
     <div style="margin-bottom: 14px;">
-      <button id="pollVoteSubmit" style="background: linear-gradient(135deg, rgb(59, 232, 255), rgb(43, 184, 214)); color: rgb(18, 19, 23); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; padding: 14px 42px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; box-shadow: rgba(59, 232, 255, 0.35) 0px 4px 18px; opacity: 1; outline: none; cursor: pointer;" data-element-type="button" data-element-id="pollVoteSubmit" data-native-element="true">שלח הצבעה 🔥</button>
+      <button id="pollVoteSubmit" style="background: linear-gradient(135deg, #3BE8FF, #2BB8D6); color: #121317; border: none; padding: 14px 42px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; box-shadow: 0 4px 18px rgba(59,232,255,0.35); cursor: pointer;">שלח הצבעה 🔥</button>
     </div>
 
-    <p id="pollTotalText" style="color: rgb(167, 171, 180); font-size: 0.9rem; margin-bottom: 24px;">סה"כ הצבעות: 0</p>
+    <p id="pollTotalText" style="color: #A7ABB4; font-size: 0.9rem; margin-bottom: 24px;">סה"כ הצבעות: 0</p>
 
-    <!-- Admin Panel -->
-    <div style="margin-top: 20px; border-top: 1px solid #2A2D35; padding-top: 20px; text-align: right;">
-      <details id="pollAdminDetails" style="display: grid; background: rgb(26, 29, 36); border: 1px solid rgb(42, 45, 53); border-radius: 14px; padding: 20px; --zappy-grid-cols: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); align-items: stretch !important;" data-zappy-explicit-columns="true" class="zappy-preserve-css-grid" data-original-item-width="294" data-original-gap="normal">
-        <summary style="background-color: rgba(0, 0, 0, 0) !important; grid-area: auto !important;" data-grid-item-index="0">⚙️ ניהול אפשרויות (מנהל)</summary>
-        <div style="background-color: rgba(0, 0, 0, 0) !important; grid-area: auto !important; display: flex !important; flex-direction: column !important; justify-content: flex-end !important; align-items: stretch !important; align-self: stretch !important; height: 100% !important;" data-grid-item-index="1">
-          <p style="color: rgb(245, 243, 238) !important;"><label style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 0.85rem; color: rgb(167, 171, 180); ">תווית</label>
+    <div id="pollResultsBar" style="margin-top: 0; background: #1a1d24; border-radius: 12px; overflow: hidden; border: 1px solid #2A2D35;">
+      <div id="pollResultsInner" style="display: flex; min-height: 10px;"></div>
+    </div>
 
-          </p><div id="pollAdminContent-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" style="display: block;">
-            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-              <input type="text" id="pollNewOptionInput-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" placeholder="שם הילד..." style="flex: 1; padding: 10px 14px; background: #121317; border: 1px solid #2A2D35; border-radius: 10px; color: #F5F3EE; font-size: 0.9rem;">
-              <button id="pollAddOptionBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" style="background: #D9FF4A; color: #121317; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer;" data-element-type="button" data-element-id="btn-1782775266936-bynbf0m7m-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" data-native-element="true">כפתור</button>
-            </div>
-            <ul id="pollAdminOptionsList-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" style="list-style: none; padding: 0; margin: 0 0 12px; text-align: right;"></ul>
-            <button id="pollResetVotesBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" style="background: rgba(255,79,163,0.15); color: #FF4FA3; border: 1px solid rgba(255,79,163,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;" data-element-type="button" data-element-id="btn-1782775266936-dmd5eb0xp-add-1782775594380-sybv2t-dup-1782779290590-anzlw4" data-native-element="true">כפתור</button>
+    <div style="margin-top: 24px; border-top: 1px solid #2A2D35; padding-top: 20px; text-align: right;">
+      <details id="pollAdminDetails" style="background: #1a1d24; border: 1px solid #2A2D35; border-radius: 14px; padding: 20px;">
+        <summary style="cursor: pointer; color: #A7ABB4; font-weight: 600; font-size: 0.95rem;">⚙️ ניהול אפשרויות (מנהל)</summary>
+        <div style="margin-top: 16px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+            <input type="text" id="pollNewOptionInput" placeholder="שם הילד..." style="flex: 1; padding: 10px 14px; background: #121317; border: 1px solid #2A2D35; border-radius: 10px; color: #F5F3EE; font-size: 0.9rem;">
+            <button id="pollAddOptionBtn" style="background: #D9FF4A; color: #121317; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer;">➕ הוסף</button>
           </div>
-        </div><div style="background-color: rgba(0, 0, 0, 0) !important; grid-area: auto !important;" data-grid-item-index="2">
-          <p style="color: rgb(245, 243, 238) !important;">טקסט כאן</p><div id="pollAdminContent-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" style="display: block;">
-            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-              <input type="text" id="pollNewOptionInput-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" placeholder="שם הילד..." style="flex: 1; padding: 10px 14px; background: #121317; border: 1px solid #2A2D35; border-radius: 10px; color: #F5F3EE; font-size: 0.9rem;">
-              <button id="pollAddOptionBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" style="background: #D9FF4A; color: #121317; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer;" data-element-type="button" data-element-id="btn-1782775266936-bynbf0m7m-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" data-native-element="true">כפתור</button>
-            </div>
-            <ul id="pollAdminOptionsList-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" style="list-style: none; padding: 0; margin: 0 0 12px; text-align: right;"></ul>
-            <button id="pollResetVotesBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" style="background: rgba(255,79,163,0.15); color: #FF4FA3; border: 1px solid rgba(255,79,163,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;" data-element-type="button" data-element-id="btn-1782775266936-dmd5eb0xp-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169" data-native-element="true">כפתור</button>
-          </div>
-        </div><div style="background-color: rgba(0, 0, 0, 0) !important; grid-area: auto !important;" data-grid-item-index="3">
-          <p style="color: rgb(245, 243, 238) !important;">טקסט כאן</p><div id="pollAdminContent-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" style="display: block;">
-            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-              <input type="text" id="pollNewOptionInput-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" placeholder="שם הילד..." style="flex: 1; padding: 10px 14px; background: #121317; border: 1px solid #2A2D35; border-radius: 10px; color: #F5F3EE; font-size: 0.9rem;">
-              <button id="pollAddOptionBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" style="background: #D9FF4A; color: #121317; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer;" data-element-type="button" data-element-id="btn-1782775266936-bynbf0m7m-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" data-native-element="true">כפתור</button>
-            </div>
-            <ul id="pollAdminOptionsList-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" style="list-style: none; padding: 0; margin: 0 0 12px; text-align: right;"></ul>
-            <button id="pollResetVotesBtn-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" style="background: rgba(255,79,163,0.15); color: #FF4FA3; border: 1px solid rgba(255,79,163,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;" data-element-type="button" data-element-id="btn-1782775266936-dmd5eb0xp-add-1782775594380-sybv2t-dup-1782779290590-anzlw4-add-1782779616727-gg1169-add-1782779630857-hlwv6w" data-native-element="true">כפתור</button>
-          </div>
+          <ul id="pollAdminOptionsList" style="list-style: none; padding: 0; margin: 0 0 12px; text-align: right;"></ul>
+          <button id="pollResetVotesBtn" style="background: rgba(255,79,163,0.15); color: #FF4FA3; border: 1px solid rgba(255,79,163,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">🔄 אפס הצבעות</button>
         </div>
       </details>
     </div>
-
-    <!-- Results bar -->
-    <div id="pollResultsBar" style="margin-top: 28px; background: #1a1d24; border-radius: 12px; overflow: hidden; border: 1px solid #2A2D35;">
-      <div id="pollResultsInner" style="display: flex; min-height: 10px;"></div>
-    </div>
-  </div>
-</section>
+  </div></section>
 
 <section data-band-index="6" id="cta" class="index-cta-section" data-layout-spec="בית-cta">
     <div class="cta-container">
