@@ -6083,6 +6083,579 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
     font-size: 1.3rem;
   }
 }
+
+/* AI-generated section */
+/* ============================================ */
+/* GOSSIP / SPILL THE TEA SECTION               */
+/* ============================================ */
+
+.gossip-section {
+  background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #0d1a0d 100%);
+  padding: 80px 20px 90px;
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle grid pattern overlay */
+.gossip-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 79, 163, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(50, 255, 150, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gossip-container {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================ */
+/* DECORATIVE FLOATING EMOJIS                   */
+/* ============================================ */
+
+.gossip-decor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gossip-decor--top-left {
+  top: -10px;
+  left: 5%;
+}
+
+.gossip-decor--top-right {
+  top: -10px;
+  right: 5%;
+}
+
+.gossip-decor--bottom-left {
+  bottom: 10px;
+  left: 8%;
+}
+
+.gossip-decor--bottom-right {
+  bottom: 10px;
+  right: 8%;
+}
+
+.gossip-emoji-float {
+  font-size: 2.5rem;
+  display: inline-block;
+  animation: gossipFloat 4s ease-in-out infinite;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 8px rgba(255, 79, 163, 0.3));
+}
+
+.gossip-emoji-float--delay {
+  animation-delay: 2s;
+}
+
+@keyframes gossipFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-12px) rotate(-5deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+  75% { transform: translateY(-18px) rotate(-2deg); }
+}
+
+/* ============================================ */
+/* HEADER                                       */
+/* ============================================ */
+
+.gossip-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.gossip-heading {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  text-shadow: 0 0 30px rgba(50, 255, 150, 0.4), 0 0 60px rgba(50, 255, 150, 0.15);
+  letter-spacing: -0.5px;
+}
+
+.gossip-heading-icon {
+  display: inline-block;
+  margin-left: 8px;
+  animation: gossipFloat 3s ease-in-out infinite;
+  font-size: 2.6rem;
+  vertical-align: middle;
+}
+
+.gossip-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gossip-subtitle strong {
+  color: #32ff96;
+  font-weight: 700;
+}
+
+/* ============================================ */
+/* CARD                                         */
+/* ============================================ */
+
+.gossip-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(50, 255, 150, 0.2);
+  border-radius: 20px;
+  padding: 36px 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 60px rgba(50, 255, 150, 0.08);
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.gossip-card:hover {
+  border-color: rgba(50, 255, 150, 0.35);
+  box-shadow: 
+    0 12px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 80px rgba(50, 255, 150, 0.12);
+}
+
+/* ============================================ */
+/* FORM FIELDS                                  */
+/* ============================================ */
+
+.gossip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gossip-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.gossip-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gossip-label-icon {
+  font-size: 1.2rem;
+}
+
+.gossip-input,
+.gossip-textarea {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  color: #ffffff;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.gossip-input::placeholder,
+.gossip-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-style: italic;
+}
+
+.gossip-input:focus,
+.gossip-textarea:focus {
+  outline: none;
+  border-color: #32ff96;
+  box-shadow: 0 0 0 4px rgba(50, 255, 150, 0.1), 0 0 20px rgba(50, 255, 150, 0.15);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.gossip-input:hover,
+.gossip-textarea:hover {
+  border-color: rgba(50, 255, 150, 0.4);
+}
+
+.gossip-textarea {
+  resize: vertical;
+  min-height: 140px;
+  max-height: 350px;
+}
+
+.gossip-field-hint {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gossip-char-count {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: left;
+  direction: ltr;
+}
+
+.gossip-char-count.warning {
+  color: #ffb347;
+}
+
+.gossip-char-count.danger {
+  color: #ff4f4f;
+}
+
+/* ============================================ */
+/* CHECKBOX (ANONYMOUS TOGGLE)                  */
+/* ============================================ */
+
+.gossip-field--checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.gossip-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.gossip-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.gossip-checkbox-custom {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 2px solid rgba(50, 255, 150, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gossip-checkbox-custom::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #32ff96;
+  border-radius: 3px;
+  transform: scale(0) rotate(-45deg);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.gossip-checkbox:checked + .gossip-checkbox-custom {
+  border-color: #32ff96;
+  background: rgba(50, 255, 150, 0.1);
+  box-shadow: 0 0 16px rgba(50, 255, 150, 0.3);
+}
+
+.gossip-checkbox:checked + .gossip-checkbox-custom::after {
+  transform: scale(1) rotate(0deg);
+}
+
+.gossip-checkbox:focus-visible + .gossip-checkbox-custom {
+  outline: 2px solid #32ff96;
+  outline-offset: 3px;
+}
+
+.gossip-checkbox-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gossip-checkbox-emoji {
+  font-size: 1.2rem;
+}
+
+.gossip-field--checkbox .gossip-field-hint {
+  width: 100%;
+  margin-right: 38px;
+  margin-top: 2px;
+}
+
+/* ============================================ */
+/* SUBMIT BUTTON                                */
+/* ============================================ */
+
+.gossip-submit-btn {
+  background: linear-gradient(135deg, #32ff96 0%, #1ddb7a 100%);
+  color: #0a0a15;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 32px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 24px rgba(50, 255, 150, 0.25);
+  margin-top: 8px;
+}
+
+.gossip-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(50, 255, 150, 0.4);
+  background: linear-gradient(135deg, #4dffa5 0%, #32ff96 100%);
+}
+
+.gossip-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(50, 255, 150, 0.3);
+}
+
+.gossip-submit-btn:focus-visible {
+  outline: 3px solid #32ff96;
+  outline-offset: 3px;
+}
+
+.gossip-btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+.gossip-btn-icon {
+  font-size: 1.4rem;
+  position: relative;
+  z-index: 1;
+  animation: gossipFloat 2.5s ease-in-out infinite;
+}
+
+.gossip-btn-sparkle {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.gossip-submit-btn:hover .gossip-btn-sparkle {
+  opacity: 1;
+  animation: sparklePop 0.6s ease-out forwards;
+}
+
+@keyframes sparklePop {
+  0% { transform: scale(0) translate(0, 0); opacity: 0; }
+  50% { transform: scale(1.5) translate(30px, -20px); opacity: 1; }
+  100% { transform: scale(0.8) translate(50px, -35px); opacity: 0; }
+}
+
+/* Button loading state */
+.gossip-submit-btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.gossip-submit-btn.loading .gossip-btn-text::after {
+  content: '...';
+  animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* ============================================ */
+/* SUCCESS MESSAGE                              */
+/* ============================================ */
+
+.gossip-success {
+  display: none;
+  text-align: center;
+  padding: 20px 24px;
+  background: rgba(50, 255, 150, 0.08);
+  border: 1px solid rgba(50, 255, 150, 0.3);
+  border-radius: 14px;
+  margin-top: 8px;
+  animation: successFadeIn 0.5s ease;
+}
+
+.gossip-success.visible {
+  display: block;
+}
+
+.gossip-success-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+  animation: gossipFloat 2s ease-in-out infinite;
+}
+
+.gossip-success-text {
+  color: #c8ffe0;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+@keyframes successFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================ */
+/* FOOTER NOTE                                  */
+/* ============================================ */
+
+.gossip-footer-note {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  margin-top: 24px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================ */
+/* RESPONSIVE                                   */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .gossip-section {
+    padding: 60px 16px 70px;
+  }
+
+  .gossip-heading {
+    font-size: 1.8rem;
+  }
+
+  .gossip-heading-icon {
+    font-size: 2rem;
+  }
+
+  .gossip-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .gossip-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .gossip-form {
+    gap: 18px;
+  }
+
+  .gossip-input,
+  .gossip-textarea {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .gossip-submit-btn {
+    padding: 14px 24px;
+    font-size: 1.05rem;
+  }
+
+  .gossip-decor--top-left {
+    left: 2%;
+  }
+
+  .gossip-decor--top-right {
+    right: 2%;
+  }
+
+  .gossip-emoji-float {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gossip-heading {
+    font-size: 1.5rem;
+  }
+
+  .gossip-heading-icon {
+    font-size: 1.6rem;
+  }
+
+  .gossip-card {
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+
+  .gossip-submit-btn {
+    width: 100%;
+  }
+
+  .gossip-emoji-float {
+    font-size: 1.5rem;
+  }
+
+  .gossip-decor--bottom-left,
+  .gossip-decor--bottom-right {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gossip-emoji-float,
+  .gossip-heading-icon,
+  .gossip-btn-icon,
+  .gossip-success-icon {
+    animation: none;
+  }
+
+  .gossip-submit-btn:hover .gossip-btn-sparkle {
+    animation: none;
+    opacity: 0;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

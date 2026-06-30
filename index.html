@@ -1192,6 +1192,101 @@
   </div>
 </section>
 
+<section class="gossip-section" id="spill-tea" aria-labelledby="gossip-heading">
+  <div class="gossip-container">
+    
+    <!-- Decorative top elements -->
+    <div class="gossip-decor gossip-decor--top-left" aria-hidden="true">
+      <span class="gossip-emoji-float">📝</span>
+    </div>
+    <div class="gossip-decor gossip-decor--top-right" aria-hidden="true">
+      <span class="gossip-emoji-float">🤫</span>
+    </div>
+
+    <!-- Header -->
+    <header class="gossip-header">
+      <h2 class="gossip-heading" id="gossip-heading">
+        <span class="gossip-heading-icon" aria-hidden="true">🫖</span>
+        שפכו את התה – רכילות מהכיתה
+      </h2>
+      <p class="gossip-subtitle">
+        יש לכם משהו חם על מישהו? שמעתם דרמה בהפסקה?<br>
+        כאן זה המקום לשפוך הכל! <strong>הכל אנונימי לגמרי</strong>, אף אחד לא ידע שזה אתם 😉
+      </p>
+    </header>
+
+    <!-- Gossip Form Card -->
+    <div class="gossip-card">
+      <form class="gossip-form" id="gossip-form" aria-label="טופס שליחת רכילות אנונימית">
+        
+        <!-- Nickname Field -->
+        <div class="gossip-field">
+          <label for="gossip-nickname" class="gossip-label">
+            <span class="gossip-label-icon" aria-hidden="true">🕵️</span>
+            כינוי
+          </label>
+          <input type="text" id="gossip-nickname" name="nickname" class="gossip-input" placeholder="לא חייבים שם אמיתי..." maxlength="30" autocomplete="off">
+          <span class="gossip-field-hint">אופציונלי – תבחרו שם קוד מגניב</span>
+        </div>
+
+        <!-- Gossip Textarea -->
+        <div class="gossip-field">
+          <label for="gossip-content" class="gossip-label">
+            <span class="gossip-label-icon" aria-hidden="true">☕</span>
+            מה קרה? שפכו הכל!
+          </label>
+          <textarea id="gossip-content" name="content" class="gossip-textarea" placeholder="ספרו לנו את כל הדרמה... מי, מה, מתי, איפה? כל הפרטים העסיסיים!" rows="5" maxlength="1000" required="" aria-required="true"></textarea>
+          <span class="gossip-char-count" id="char-count" aria-live="polite">0 / 1000</span>
+        </div>
+
+        <!-- Anonymous Toggle -->
+        <div class="gossip-field gossip-field--checkbox">
+          <label class="gossip-checkbox-label" for="gossip-anonymous">
+            <input type="checkbox" id="gossip-anonymous" name="anonymous" class="gossip-checkbox" checked="">
+            <span class="gossip-checkbox-custom" aria-hidden="true"></span>
+            <span class="gossip-checkbox-text">
+              אנונימי לגמרי 
+              <span class="gossip-checkbox-emoji" aria-hidden="true">🤫</span>
+            </span>
+          </label>
+          <span class="gossip-field-hint">אף אחד לא יידע שזה אתם – מבטיחים!</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="gossip-submit-btn" id="gossip-submit">
+          <span class="gossip-btn-text">שפיכת תה</span>
+          <span class="gossip-btn-icon" aria-hidden="true">☕</span>
+          <span class="gossip-btn-sparkle" aria-hidden="true">✨</span>
+        </button>
+
+        <!-- Success Message (hidden by default) -->
+        <div class="gossip-success" id="gossip-success" role="status" aria-live="polite">
+          <span class="gossip-success-icon" aria-hidden="true">🎉</span>
+          <p class="gossip-success-text">התה נשפך בהצלחה! הרכילות שלכם התקבלה ונשמרת בכספת הסודות.</p>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Fun footer note -->
+    <p class="gossip-footer-note">
+      <span aria-hidden="true">🔒</span> 
+      כל המידע נשמר חסוי. רק למנהלי האתר יש גישה – וגם הם לא יודעים מי שלח.
+    </p>
+
+    <!-- Decorative bottom elements -->
+    <div class="gossip-decor gossip-decor--bottom-left" aria-hidden="true">
+      <span class="gossip-emoji-float gossip-emoji-float--delay">💌</span>
+    </div>
+    <div class="gossip-decor gossip-decor--bottom-right" aria-hidden="true">
+      <span class="gossip-emoji-float gossip-emoji-float--delay">👀</span>
+    </div>
+
+  </div>
+</section>
+
+
+
 
 
 <section data-band-index="3" id="benefits" class="index-benefits-section" data-layout-spec="בית-benefits">
