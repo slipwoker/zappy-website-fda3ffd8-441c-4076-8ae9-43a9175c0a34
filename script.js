@@ -1916,6 +1916,63 @@ window.onload = function() {
 })();
 /* ZAPPY_BLOCK_RUNTIME_END */
 
+/* ZAPPY_CUSTOM_JS_START:4dfbc2ee8fad */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  // טופס רכילות - הפיכת כפתור "שפיכת תה" לשליחה במייל
+  var gossipForm = document.getElementById('gossip-form');
+  if (gossipForm) {
+    gossipForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nickname = document.getElementById('gossip-nickname');
+      var content = document.getElementById('gossip-content');
+      var anonymous = document.getElementById('gossip-anonymous');
+      var n = (nickname && nickname.value.trim()) ? nickname.value.trim() : 'אנונימי';
+      var c = content ? content.value.trim() : '';
+      var a = (anonymous && anonymous.checked) ? 'כן 🤫' : 'לא';
+      var subject = encodeURIComponent('🫖 רכילות מהכיתה - ' + n);
+      var body = '🫖 רכילות חדשה מהכיתה!%0A%0A👤 כינוי: ' + encodeURIComponent(n) + '%0A🔒 אנונימי: ' + encodeURIComponent(a) + '%0A%0A☕ התוכן:%0A' + encodeURIComponent(c);
+      window.location.href = 'mailto:[business_email]?subject=' + subject + '&body=' + body;
+      // הצגת הודעת הצלחה
+      var success = document.getElementById('gossip-success');
+      if (success) success.style.display = 'block';
+    });
+  }
+
+  // טופס סיפור - הפיכת כפתור "שליחת הסיפור" לשליחה במייל
+  var storyForm = document.querySelector('.submit-story-form');
+  if (storyForm) {
+    storyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nameEl = document.getElementById('student-name');
+      var titleEl = document.getElementById('story-title');
+      var contentEl = document.getElementById('story-content');
+      var name = nameEl ? nameEl.value.trim() : '';
+      var title = titleEl ? titleEl.value.trim() : '';
+      var content = contentEl ? contentEl.value.trim() : '';
+      var subject = encodeURIComponent('📖 סיפור מהכיתה - ' + (title || name || 'חדש'));
+      var body = '📖 סיפור חדש מהכיתה!%0A%0A👤 שם: ' + encodeURIComponent(name) + '%0A✏️ כותרת: ' + encodeURIComponent(title) + '%0A%0A🔥 הסיפור:%0A' + encodeURIComponent(content);
+      window.location.href = 'mailto:[business_email]?subject=' + subject + '&body=' + body;
+      // הצגת הודעת הצלחה
+      var success = document.querySelector('.submit-story-success');
+      if (success) success.removeAttribute('hidden');
+    });
+  }
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:4dfbc2ee8fad */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
